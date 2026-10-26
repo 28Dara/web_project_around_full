@@ -1,0 +1,38 @@
+{
+  "name": "web_project_around_express",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/app.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/app.js",
+    "dev": "tsx watch src/app.ts",
+    "lint": "eslint src/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/28Dara/web_project_around_express.git"
+  },
+  "keywords": [],
+  "author": "Dara Rangel",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/28Dara/web_project_around_express/issues"
+  },
+  "homepage": "https://github.com/28Dara/web_project_around_express#readme",
+  "dependencies": {
+    "express": "^5.2.1",
+    "mongoose": "^9.11.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.6.3",
+    "eslint": "^10.11.0",
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "^3.9.9",
+    "tsx": "^4.23.15",
+    "typescript": "6.0",
+    "typescript-eslint": "^8.71.0"
+  }
+}
