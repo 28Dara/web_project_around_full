@@ -21,11 +21,13 @@
   },
   "homepage": "https://github.com/28Dara/web_project_around_express#readme",
   "dependencies": {
+    "cors": "^2.8.6",
     "express": "^5.2.1",
     "mongoose": "^9.11.2"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/node": "^26.6.3",
     "eslint": "^10.11.0",

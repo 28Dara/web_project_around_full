@@ -7,9 +7,8 @@ import type { CardData, CardFormData } from '../interfaces/CardData';
 import type { ApiConfig } from '../interfaces/ApiConfig';
 
 const apiConfig: ApiConfig = {
-  baseUrl: 'https://around-api.es.tripleten-services.com/v1',
+  baseUrl: 'http://localhost:3001',
   headers: {
-    authorization: 'c0ddf0cf-88d1-48e6-85fb-4d797dfcd802',
     'Content-Type': 'application/json',
   },
 };

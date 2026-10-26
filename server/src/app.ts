@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import mongoose from 'mongoose';
 import router from './routes/index.js';
 import { errorHandler } from './middleware/error-handler.js';
@@ -6,6 +7,8 @@ import { errorHandler } from './middleware/error-handler.js';
 const app = express();
 
 mongoose.connect('mongodb://127.0.0.1:27017/aroundb');
+
+app.use(cors({ origin: 'http://localhost:3000' }));
 
 app.use(express.json());
 
