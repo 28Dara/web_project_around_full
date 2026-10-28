@@ -9,7 +9,7 @@ import InfoTooltip from './InfoTooltip/InfoTooltip';
 import { useEffect, useState } from 'react';
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import api from '../utils/api';
-import { registerUser, loginUser } from '../utils/auth';
+import { registerUser, loginUser, checkToken } from '../utils/auth';
 import CurrentUserContext from '../contexts/CurrentUserContext';
 import type {
   UserData,
@@ -25,7 +25,8 @@ export default function App() {
   const [cards, setCards] = useState<CardData[]>([]);
   const [popup, setPopup] = useState<ModalData | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [email] = useState('');
+  const [email, setEmail] = useState('');
+  const [isAuthChecked, setIsAuthChecked] = useState(false);
   const [isTooltipOpen, setIsTooltipOpen] = useState(false);
   const [isTooltipSuccess, setIsTooltipSuccess] = useState(false);
   const navigate = useNavigate();
@@ -42,6 +43,23 @@ export default function App() {
       } catch (error) {
         console.error(error);
       }
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      const token = localStorage.getItem('jwt');
+      if (token) {
+        try {
+          const user = await checkToken(token);
+          setEmail(user.email);
+          setIsLoggedIn(true);
+        } catch (error) {
+          console.error(error);
+          localStorage.removeItem('jwt');
+        }
+      }
+      setIsAuthChecked(true);
     })();
   }, []);
 
@@ -115,6 +133,7 @@ export default function App() {
     try {
       const token = await loginUser(data);
       localStorage.setItem('jwt', token);
+      setEmail(data.email);
       setIsLoggedIn(true);
     } catch (error) {
       console.error(error);
@@ -135,6 +154,10 @@ export default function App() {
 
   function handleCloseTooltip() {
     setIsTooltipOpen(false);
+  }
+
+  if (!isAuthChecked) {
+    return null;
   }
 
   return (
