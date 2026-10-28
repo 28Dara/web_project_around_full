@@ -142,7 +142,10 @@ export default function App() {
     }
   };
 
-  const handleSignOut = () => {};
+  const handleSignOut = () => {
+    localStorage.removeItem('jwt');
+    setIsLoggedIn(false);
+  };
 
   function handleOpenPopup(popup: ModalData) {
     setPopup(popup);
