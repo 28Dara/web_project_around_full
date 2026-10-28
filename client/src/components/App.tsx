@@ -1,9 +1,15 @@
 import Header from './Header/Header';
 import Main from './Main/Main';
 import Footer from './Footer/Footer';
+import Login from './Login/Login';
+import Register from './Register/Register';
+import ProtectedRoute from './ProtectedRoute/ProtectedRoute';
+import InfoTooltip from './InfoTooltip/InfoTooltip';
 
 import { useEffect, useState } from 'react';
+import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import api from '../utils/api';
+import { registerUser, loginUser } from '../utils/auth';
 import CurrentUserContext from '../contexts/CurrentUserContext';
 import type {
   UserData,
@@ -12,11 +18,17 @@ import type {
 } from '../interfaces/UserData';
 import type { CardData, CardFormData } from '../interfaces/CardData';
 import type { ModalData } from '../interfaces/ModalData';
+import type { AuthFormData } from '../interfaces/AuthData';
 
 export default function App() {
   const [currentUser, setCurrentUser] = useState<UserData | null>(null);
   const [cards, setCards] = useState<CardData[]>([]);
   const [popup, setPopup] = useState<ModalData | null>(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [email] = useState('');
+  const [isTooltipOpen, setIsTooltipOpen] = useState(false);
+  const [isTooltipSuccess, setIsTooltipSuccess] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
@@ -86,12 +98,43 @@ export default function App() {
     }
   };
 
+  const handleRegister = async (data: AuthFormData) => {
+    try {
+      await registerUser(data);
+      setIsTooltipSuccess(true);
+      setIsTooltipOpen(true);
+      navigate('/signin');
+    } catch (error) {
+      console.error(error);
+      setIsTooltipSuccess(false);
+      setIsTooltipOpen(true);
+    }
+  };
+
+  const handleLogin = async (data: AuthFormData) => {
+    try {
+      const token = await loginUser(data);
+      localStorage.setItem('jwt', token);
+      setIsLoggedIn(true);
+    } catch (error) {
+      console.error(error);
+      setIsTooltipSuccess(false);
+      setIsTooltipOpen(true);
+    }
+  };
+
+  const handleSignOut = () => {};
+
   function handleOpenPopup(popup: ModalData) {
     setPopup(popup);
   }
 
   function handleClosePopup() {
     setPopup(null);
+  }
+
+  function handleCloseTooltip() {
+    setIsTooltipOpen(false);
   }
 
   return (
@@ -104,16 +147,58 @@ export default function App() {
       }}
     >
       <div className='page__content'>
-        <Header />
-        <Main
-          cards={cards}
-          handleOpenPopup={handleOpenPopup}
-          handleClosePopup={handleClosePopup}
-          handleCardLike={handleCardLike}
-          handleCardDelete={handleCardDelete}
-          popup={popup}
+        <Header
+          isLoggedIn={isLoggedIn}
+          email={email}
+          handleSignOut={handleSignOut}
         />
+        <Routes>
+          <Route
+            path='/'
+            element={
+              <ProtectedRoute isLoggedIn={isLoggedIn}>
+                <Main
+                  cards={cards}
+                  handleOpenPopup={handleOpenPopup}
+                  handleClosePopup={handleClosePopup}
+                  handleCardLike={handleCardLike}
+                  handleCardDelete={handleCardDelete}
+                  popup={popup}
+                />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='/signin'
+            element={
+              isLoggedIn ? (
+                <Navigate to='/' replace />
+              ) : (
+                <Login handleLogin={handleLogin} />
+              )
+            }
+          />
+          <Route
+            path='/signup'
+            element={
+              isLoggedIn ? (
+                <Navigate to='/' replace />
+              ) : (
+                <Register handleRegister={handleRegister} />
+              )
+            }
+          />
+          <Route
+            path='*'
+            element={<Navigate to={isLoggedIn ? '/' : '/signin'} replace />}
+          />
+        </Routes>
         <Footer />
+        <InfoTooltip
+          isOpen={isTooltipOpen}
+          isSuccess={isTooltipSuccess}
+          onClose={handleCloseTooltip}
+        />
       </div>
     </CurrentUserContext.Provider>
   );

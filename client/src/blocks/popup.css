@@ -112,6 +112,28 @@
   margin: 0;
 }
 
+.popup__content_type_tooltip {
+  min-height: 330px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 32px;
+}
+
+.popup__tooltip-icon {
+  width: 120px;
+  height: 120px;
+}
+
+.popup__message {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 29px;
+}
+
 @media screen and (max-width: 544px) {
   .popup {
     bottom: 112px;
@@ -150,6 +172,16 @@
   .popup__content_content_image {
     max-width: 75vw;
     padding: 0;
+  }
+
+  .popup__content_type_tooltip {
+    max-width: 280px;
+    min-height: 308px;
+  }
+
+  .popup__message {
+    font-size: 18px;
+    line-height: 22px;
   }
 }
 
