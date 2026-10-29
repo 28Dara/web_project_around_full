@@ -101,11 +101,7 @@ export default function Main(props: MainProps): React.JSX.Element {
         </ul>
       </section>
       {popup && (
-        <Popup
-          onClose={handleClosePopup}
-          title={popup.title}
-          isOpen={popup !== null}
-        >
+        <Popup onClose={handleClosePopup} title={popup.title}>
           {popup.children}
         </Popup>
       )}
