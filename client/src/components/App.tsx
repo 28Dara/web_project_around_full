@@ -20,6 +20,8 @@ import type { CardData, CardFormData } from '../interfaces/CardData';
 import type { ModalData } from '../interfaces/ModalData';
 import type { AuthFormData } from '../interfaces/AuthData';
 
+const tokenStorageKey = 'jwt';
+
 export default function App() {
   const [currentUser, setCurrentUser] = useState<UserData | null>(null);
   const [cards, setCards] = useState<CardData[]>([]);
@@ -48,7 +50,7 @@ export default function App() {
 
   useEffect(() => {
     (async () => {
-      const token = localStorage.getItem('jwt');
+      const token = localStorage.getItem(tokenStorageKey);
       if (token) {
         try {
           const user = await checkToken(token);
@@ -56,7 +58,7 @@ export default function App() {
           setIsLoggedIn(true);
         } catch (error) {
           console.error(error);
-          localStorage.removeItem('jwt');
+          localStorage.removeItem(tokenStorageKey);
         }
       }
       setIsAuthChecked(true);
@@ -132,7 +134,7 @@ export default function App() {
   const handleLogin = async (data: AuthFormData) => {
     try {
       const token = await loginUser(data);
-      localStorage.setItem('jwt', token);
+      localStorage.setItem(tokenStorageKey, token);
       setEmail(data.email);
       setIsLoggedIn(true);
     } catch (error) {
@@ -143,7 +145,7 @@ export default function App() {
   };
 
   const handleSignOut = () => {
-    localStorage.removeItem('jwt');
+    localStorage.removeItem(tokenStorageKey);
     setIsLoggedIn(false);
   };
 
