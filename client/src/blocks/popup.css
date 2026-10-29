@@ -188,29 +188,7 @@
   }
 }
 
-.popup__input-error {
-  color: #ff0000;
-  font-size: 12px;
-  font-weight: 400;
-  display: none;
-}
-
 .popup__button:hover {
   background: rgba(0, 0, 0, 0.7);
   cursor: pointer;
-}
-
-.popup__button_disabled {
-  background: white;
-  border: 1px solid rgba(0, 0, 0, 0.5);
-  color: black;
-  opacity: 0.3;
-}
-
-.popup__input_type_error {
-  border-bottom-color: #ff0000;
-}
-
-.popup__input-error_active {
-  display: block;
 }
