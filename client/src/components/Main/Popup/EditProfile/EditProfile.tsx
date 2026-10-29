@@ -16,7 +16,6 @@ export default function EditProfile(): React.JSX.Element {
       className='popup__form'
       id='edit-profile-form'
       name='edit-profile-form'
-      noValidate
       onSubmit={handleSubmit}
     >
       <input
@@ -27,11 +26,10 @@ export default function EditProfile(): React.JSX.Element {
         type='text'
         required
         minLength={2}
-        maxLength={40}
+        maxLength={30}
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
-      <span id='name-input-error' className='popup__input-error'></span>
       <input
         className='popup__input popup__input_type_description'
         name='description'
@@ -40,11 +38,10 @@ export default function EditProfile(): React.JSX.Element {
         type='text'
         required
         minLength={2}
-        maxLength={200}
+        maxLength={30}
         value={description}
         onChange={(e) => setDescription(e.target.value)}
       />
-      <span id='description-input-error' className='popup__input-error'></span>
       <button className='button popup__button' type='submit'>
         Guardar
       </button>

@@ -6,7 +6,7 @@ export default function NewCard(): React.JSX.Element {
   const [name, setName] = useState('');
   const [link, setLink] = useState('');
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
     handleAddPlaceSubmit({ name, link });
   };
@@ -16,7 +16,6 @@ export default function NewCard(): React.JSX.Element {
       className='popup__form'
       id='new-card-form'
       name='new-card-form'
-      noValidate
       onSubmit={handleSubmit}
     >
       <label className='popup__field'>
@@ -32,7 +31,6 @@ export default function NewCard(): React.JSX.Element {
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
-        <span className='popup__error' id='card-name-error'></span>
       </label>
       <label className='popup__field'>
         <input
@@ -45,7 +43,6 @@ export default function NewCard(): React.JSX.Element {
           value={link}
           onChange={(e) => setLink(e.target.value)}
         />
-        <span className='popup__error' id='card-url-error'></span>
       </label>
       <button className='button popup__button' type='submit'>
         Crear

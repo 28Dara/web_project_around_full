@@ -5,7 +5,7 @@ export default function EditAvatar(): React.JSX.Element {
   const { handleUpdateAvatar } = useContext(CurrentUserContext);
   const avatarRef = useRef<HTMLInputElement>(null);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (avatarRef.current) {
       handleUpdateAvatar({ avatar: avatarRef.current.value });
@@ -17,7 +17,6 @@ export default function EditAvatar(): React.JSX.Element {
       className='popup__form'
       id='avatar-form'
       name='avatar-form'
-      noValidate
       onSubmit={handleSubmit}
     >
       <input
@@ -29,7 +28,6 @@ export default function EditAvatar(): React.JSX.Element {
         required
         ref={avatarRef}
       />
-      <span id='avatar-input-error' className='popup__input-error'></span>
       <button className='button popup__button' type='submit'>
         Guardar
       </button>
