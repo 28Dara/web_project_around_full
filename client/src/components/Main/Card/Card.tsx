@@ -16,7 +16,7 @@ type CardProps = {
 
 export default function Card(props: CardProps): React.JSX.Element {
   const { card, handleCardClick, handleCardLike, handleCardDelete } = props;
-  const { name, link, isLiked, owner } = card;
+  const { name, link, isLiked, owner, likes } = card;
   const { currentUser } = useContext(CurrentUserContext);
   const isOwner = currentUser?._id === owner;
 
@@ -42,12 +42,15 @@ export default function Card(props: CardProps): React.JSX.Element {
       )}
       <div className='card__description'>
         <h2 className='card__title'>{name}</h2>
-        <button
-          aria-label='Botón Me gusta'
-          type='button'
-          className={cardLikeButtonClassName}
-          onClick={() => handleCardLike(card)}
-        />
+        <div className='card__like'>
+          <button
+            aria-label='Botón Me gusta'
+            type='button'
+            className={cardLikeButtonClassName}
+            onClick={() => handleCardLike(card)}
+          />
+          <span className='card__like-count'>{likes.length}</span>
+        </div>
       </div>
     </li>
   );

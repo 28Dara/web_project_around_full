@@ -8,8 +8,17 @@ type PopupProps = {
 export default function Popup(props: PopupProps): React.JSX.Element {
   const { title, children, onClose, isOpen } = props;
 
+  const handleOverlayClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (event.target === event.currentTarget) {
+      onClose();
+    }
+  };
+
   return (
-    <div className={`popup ${isOpen ? 'popup_is-opened' : ''}`}>
+    <div
+      className={`popup ${isOpen ? 'popup_is-opened' : ''}`}
+      onClick={handleOverlayClick}
+    >
       <div
         className={`popup__content ${
           !title ? 'popup__content_content_image' : ''

@@ -3,6 +3,7 @@ export interface CardData {
   name: string;
   link: string;
   owner: string;
+  likes: string[];
   createdAt: string;
   isLiked: boolean;
 }

@@ -17,8 +17,17 @@ export default function InfoTooltip(
     ? '¡Correcto! Ya estás registrado.'
     : 'Uy, algo salió mal. Por favor, inténtalo de nuevo.';
 
+  const handleOverlayClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (event.target === event.currentTarget) {
+      onClose();
+    }
+  };
+
   return (
-    <div className={`popup ${isOpen ? 'popup_is-opened' : ''}`}>
+    <div
+      className={`popup ${isOpen ? 'popup_is-opened' : ''}`}
+      onClick={handleOverlayClick}
+    >
       <div className='popup__content popup__content_type_tooltip'>
         <button
           aria-label='Cerrar ventana'

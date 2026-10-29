@@ -104,10 +104,13 @@
 
 .popup__caption {
   font-size: 12px;
+  font-weight: 900;
   line-height: 15px;
+  text-align: center;
   color: #fff;
   position: absolute;
   left: 0;
+  width: 100%;
   top: calc(100% + 10px);
   margin: 0;
 }
