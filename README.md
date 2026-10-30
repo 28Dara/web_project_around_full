@@ -1,5 +1,3 @@
-# Tripleten web_project_around_full
-
 # Around The U.S. — Full Stack
 
 ## Descripción
@@ -50,20 +48,41 @@ Los usuarios pueden registrarse, iniciar sesión, editar su perfil y su avatar, 
 
 ## Cómo ejecutarlo
 
-Requisitos: Node.js y MongoDB en ejecución en `mongodb://127.0.0.1:27017/aroundb`.
+**Requisitos**
 
-```bash
-npm run install:all
-npm run dev:server
-npm run dev:client
-```
+- Node.js
+- MongoDB instalado y **en ejecución** en `mongodb://127.0.0.1:27017` (la base `aroundb` se crea sola)
+- Conexión a internet: el registro y el inicio de sesión usan la API de autenticación de TripleTen
+
+**Pasos**
+
+1. Inicia MongoDB (como servicio del sistema o con `mongod`).
+2. Instala las dependencias de las dos mitades:
+
+   ```bash
+   npm run install:all
+   ```
+
+3. En una terminal, levanta la API:
+
+   ```bash
+   npm run dev:server
+   ```
+
+4. En otra terminal, levanta la aplicación:
+
+   ```bash
+   npm run dev:client
+   ```
 
 | Parte              | Dirección             |
 | ------------------ | --------------------- |
 | API (Express)      | http://localhost:3001 |
 | Aplicación (React) | http://localhost:3000 |
 
-Cada comando de desarrollo va en su propia terminal.
+**Datos iniciales:** al arrancar, el servidor crea el usuario por defecto (Jacques Cousteau) si no existe. Las tarjetas empiezan vacías y se crean desde la aplicación.
+
+**Solución de problemas:** si `dev:server` muestra "No se pudo conectar o preparar MongoDB", MongoDB no está en ejecución. Inícialo y vuelve a ejecutar el comando.
 
 ## Estructura del proyecto
 
